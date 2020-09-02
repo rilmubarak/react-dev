@@ -1,29 +1,50 @@
-import React, {Component} from 'react';
+import React from 'react';
 import useFetcher from '../hooks/useFetcher'
-// import { useLocation } from "react-router-dom";
+import { useParams, Link } from 'react-router-dom'
 
 export default () => {
-    const baseUrl = "https://digimon-api.vercel.app/api/digimon/name/"
-    const {data, loading, error} = useFetcher()
+    const { name } = useParams();
+    const baseUrl = `https://digimon-api.vercel.app/api/digimon/name/${name}`
+    const {data:digimons, loading, error} = useFetcher(baseUrl)
+
+    if (loading) {
+        return (
+            <>
+                <div>
+                    <p>Waiting for mmoment gan...</p>
+                </div>
+            </>
+        )
+    }
+
+    if (error) {
+        return (
+            <>
+                <div>
+                    <p>Sometimes When Wrong</p>
+                </div>
+            </>
+        )
+    }
 
 
     return (
         <>
-            <div className="digi-card">
-                <h2>Detail Page</h2>
-                <div className="row">
-                    {/* {JSON.stringify(this.state.digimons)} */}
-                    {/* <div className="">
-                        <div className="card" style={{width: "18rem"}}> 
-                            <img src={this.state.digimon.img} className="card-img-top" alt="pokemon"/>
-                            <div className="card-body">
-                                <h5 className="card-title">{this.state.digimon.name}</h5>
-                                <p className="card-text">{this.state.digimon.level}</p>
-                            </div>
+            <div>
+            <h2 className="mt-2">Detail Page</h2>
+            <div className="row m-2 mt-4" style={{justifyContent:"center"}}>
+                <div className="col-3 mb-3">
+                    <div className="card" style={{width: "18rem"}}> 
+                        <img src={digimons[0].img} className="card-img-top" alt="pokemon"/>
+                        <div className="card-body">
+                            <h5 className="card-title">{digimons[0].name}</h5>
+                            <p className="card-text">{digimons[0].level}</p>
+                            <Link to={`/`} className="btn btn-warning">Back</Link>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
+        </div>
         </>
     )
 }
