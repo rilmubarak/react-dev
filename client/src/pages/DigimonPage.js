@@ -30,6 +30,12 @@ export default () => {
         <>
             <div className="mt-2">
                 <h2>Digimon Page</h2>
+                <div className="mt-4" style={{textAlign:"center"}}>
+                    <form class="form-inline my-2 my-lg-0" style={{display:"inline-block"}}>
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search"/>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
                 <div className="row m-2 mt-4">
                     {digimons.slice(1, 10).map((digimon, idx) => {
                         return <Card digimon={digimon} key={idx}/>
